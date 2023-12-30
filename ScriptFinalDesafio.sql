@@ -1,11 +1,11 @@
 -- Criação do banco de dados para o cenário E-Commerce - DDL;
-create database ecommerce;
+CREATE database ecommerce;
 use ecommerce;
 show tables;
 
 -- Criar tabela cliente;
 CREATE TABLE cliente(
-	idClient int auto_increment primary key,
+    idClient int auto_increment primary key,
     Fname varchar(15),
     Mname varchar(15),
     Lname varchar(15),
@@ -16,7 +16,7 @@ CREATE TABLE cliente(
 
 -- Criar tabela produto;
 CREATE TABLE product(
-	idProduct int auto_increment primary key,
+    idProduct int auto_increment primary key,
     Pname varchar(15) not null,
     classification_kids bool default false,
     category enum ('Eletrônico','Vestimenta','Brinquedos','Alimentos','Móveis') not null,
@@ -26,7 +26,7 @@ CREATE TABLE product(
 
 -- Criar tabela pedido;
 CREATE TABLE orders(
-	idOrder int auto_increment primary key,
+    idOrder int auto_increment primary key,
     idOrderClient int,
     OrderStatus enum('Cancelado','Confirmado','Em processamento') default 'Em processamento',
     OrderDescription varchar(255),
@@ -38,7 +38,7 @@ CREATE TABLE orders(
 
 -- Criar tabela pagamentos;
 CREATE TABLE pagamentos(
-	idClient int,
+    idClient int,
     id_payment int,
     client_order_id int,
     TypePayment enum('Dinheiro','boleto','Cartão de Crédito','Cartão de Débito','Pix'),
@@ -49,14 +49,14 @@ CREATE TABLE pagamentos(
 
 -- Criar tabela estoque;
 CREATE TABLE products_storage(
-	idProdStorage int auto_increment primary key,
+    idProdStorage int auto_increment primary key,
     StorageLocation varchar (255),
     quantity int default 0
 );
 
 -- Criar tabela fornecedor;
 CREATE TABLE supplier(
-	idSupplier int auto_increment primary key,
+    idSupplier int auto_increment primary key,
     SocialName varchar(255) not null,
     CNPJ char(15) not null,
     contact char(11) not null,
@@ -65,7 +65,7 @@ CREATE TABLE supplier(
 
 -- Criar tabela vendedor;
 CREATE TABLE seller(
-	idSeller int auto_increment primary key,
+    idSeller int auto_increment primary key,
     SocialName varchar(255) not null,
     AbstName varchar(255),
     CNPJ char(15),
@@ -78,9 +78,9 @@ CREATE TABLE seller(
 
 -- Criar tabela vendedor específico do produto;
 CREATE TABLE productSeller (
-	idPseller int,
+    idPseller int,
     idProduct int,
-	prodQuantity int default 1,
+    prodQuantity int default 1,
     primary key (idPseller, idProduct),
     constraint fk_product_seller foreign key (idPseller) references seller (idSeller),
     constraint fk_product_product foreign key (idProduct) references product (idProduct)
@@ -88,7 +88,7 @@ CREATE TABLE productSeller (
 
 -- Criar tabela produto expedido;
 CREATE TABLE productOrder(
-	idPOproduct int,
+    idPOproduct int,
     idPOorder int,
     PoQuantity int default 1,
     PoStatus enum ('Disponível','Sem estoque') default 'Disponível',
@@ -99,7 +99,7 @@ CREATE TABLE productOrder(
 
 -- Criar tabela local armazenado;
 CREATE TABLE storageLocation(
-	idLproduct int,
+    idLproduct int,
     idLstorage int,
     location varchar(255) not null,
     primary key (idLproduct, idLstorage),
@@ -109,7 +109,7 @@ CREATE TABLE storageLocation(
 
 -- Criar tabela fornecedor/produto;
 CREATE TABLE productSupplier(
-	idPsSupplier int,
+    idPsSupplier int,
     idPsProduct int,
     quantity int not null,
     primary key (idPsSupplier, idPsProduct),
